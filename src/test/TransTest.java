@@ -4,7 +4,6 @@ package test;
  * Created by SmallApple on 2017/3/20.
  */
 
-import Wikidata.HandleFiles;
 import com.lsj.trans.LANG;
 import com.lsj.trans.Translator;
 import com.lsj.trans.factory.TFactory;
@@ -41,7 +40,10 @@ public class TransTest {
         System.out.println("谷歌 : " + factory.get("google").trans(LANG.zh, LANG.en, origin));
         System.out.println("腾讯 : " + factory.get("tencent").trans(LANG.zh, LANG.en, origin));
 
-        System.out.println("谷歌 : " + factory.get("google").trans(LANG.auto, LANG.eu, origin));
+        System.out.println("谷歌 : " + factory.get("google").trans(LANG.auto, LANG.en, origin));
+        String haha = "福麗里";
+        String haha2 = "福鹿里";
+        System.out.println("谷歌 : " + factory.get("google").trans(LANG.zh, LANG.en, haha2));
     }
 
 	/*@Test

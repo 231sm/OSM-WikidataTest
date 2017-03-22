@@ -1,10 +1,8 @@
 package Wikidata;
 
-import com.lsj.trans.LANG;
-import com.lsj.trans.Translator;
+import FileHandle.HandleFiles;
 import com.lsj.trans.factory.TFactory;
 import com.lsj.trans.factory.TranslatorFactory;
-import org.junit.Before;
 
 import java.io.*;
 
@@ -12,13 +10,16 @@ import java.io.*;
  * Created by SmallApple on 2017/3/21.
  */
 public class HandleJSONFiles {
-    static TFactory factory = null;
+    /*static TFactory factory = null;
     public static void setUp() throws Exception {
         factory = new TranslatorFactory();
-    }
+    }*/
+
+    //public static void infoExtByStringBuffer (String filePath, String encode, String txtPath, String country) throws Exception {
     //public static void infoExtByStringBuffer(String filePath, String encode, String xlsPath, int sheetNum) throws IOException {
-    public static void infoExtByStringBuffer(String filePath, String encode, String txtPath) throws Exception {
-        setUp();
+    public static void infoExtByStringBuffer(String filePath, String encode, String CSVFilePath, String country) throws Exception {
+        //setUp();
+        FileOutputStream fos = new FileOutputStream(CSVFilePath, true);
         File file = new File(filePath);
         BufferedReader reader = null;
         try {
@@ -39,14 +40,32 @@ public class HandleJSONFiles {
                     buf = buf + newstr.charAt(i); //buf记录下这个entity的id
                     i++;
                 }
-                System.out.print("ID " + buf + "\t");
-                HandleFiles.WirteTxt(txtPath, "ID\r\t" + buf + "\r\tName\r\t");
-                i = newstr.indexOf("en\":{\"language", i);
+                i = newstr.indexOf(country + "\":{\"language", i);
+                if(i > 0) {
+                    System.out.print("ID " + buf + "\t");
+                    byte[] bufBytes = (buf+",").getBytes();
+                    fos.write(bufBytes);
+                    //HandleFiles.WirteTxt(txtPath, "ID\r\t" + buf);
+                    i += 26 + 2*country.length();
+                    String buf2 = "";
+                    while (i < len && newstr.charAt(i) != '\"') {
+                        buf2 = buf2 + newstr.charAt(i); //buf2记录下这个entity的name
+                        i++;
+                    }
+                    System.out.println("\tName " + buf2);
+                    byte[] bufBytes2 = (buf2+"\r\n").getBytes();
+                    fos.write(bufBytes2);
+                    //HandleFiles.WirteTxt(txtPath, "\r\tName\r\t" + buf2 + "\r\n");
+                }
+                else {
+                    continue;
+                }
+                /*i = newstr.indexOf("en\":{\"language", i);
                 if(i > 0) {
                     i += 30;
                     buf = "";
                     while (i < len && newstr.charAt(i) != '\"') {
-                        buf = buf + newstr.charAt(i); //buf记录下这个entity的language
+                        buf = buf + newstr.charAt(i); //buf记录下这个entity的name
                         i++;
                     }
                     System.out.println("\tName " + buf);
@@ -67,13 +86,13 @@ public class HandleJSONFiles {
                     while (i < len && newstr.charAt(i) != '\"') {
                         buf2 = buf2 + newstr.charAt(i); //buf2记录下这个entity的name
                         i++;
-                    }
-                    if (!(buf.equals("en"))) { // 如果language不是英文，那么接着调用google翻译的API将其自动检测语言并翻译成英文存入txt文件
+                    }*/
+                    /*if (!(buf.equals("en"))) { // 如果language不是英文，那么接着调用google翻译的API将其自动检测语言并翻译成英文存入txt文件
                         buf2 = factory.get("google").trans(LANG.auto, LANG.en, buf2);
-                    }
-                    System.out.println("\tName " + buf2);
+                    }*/
+                    /*System.out.println("\tName " + buf2);
                     HandleFiles.WirteTxt(txtPath, buf2 + "\r\n");
-                }
+                }*/
             }
             reader.close();
             }
@@ -99,9 +118,12 @@ public class HandleJSONFiles {
         //String xlsPath = "F:\\extractInfo\\GoogleTranslate.test.xls";
         //int sheetNum = 0;
         String txtPath = "F:\\WikidataTest.txt";
+        String CSVPath1 = "F:\\WikidataChina.csv";
+        String CSVPath2 = "F:\\WikidataTaiwan.csv";
         try {
             //infoExtByStringBuffer(filePath, encode, xlsPath, sheetNum);
-            infoExtByStringBuffer(filePath, encode, txtPath);
+            infoExtByStringBuffer(filePath, encode, CSVPath1, "zh-cn");
+            infoExtByStringBuffer(filePath, encode, CSVPath2, "zh-tw");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

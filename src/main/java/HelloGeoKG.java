@@ -44,7 +44,9 @@ public class HelloGeoKG {
     public static void main(String args[]) throws UnsupportedEncodingException {
         System.out.printf("This project is to study (1) the linkage between OSM and WikiData, " +
                 "(2) the linkage between OSM and POIs \n");
-        System.out.printf("Have Fun!\n");
+        System.out.println("Have Fun!");
+        String str = "dsm";
+        System.out.println(str.length());
         /*String str = "\\u0418\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442";
         //String str = "dsm";
         String encodelist = getcode(str);
@@ -55,9 +57,5 @@ public class HelloGeoKG {
         //String filePath = "F:\\Data\\OSM\\cambodia-latest.osm";
         String filePath = "F:\\Data\\OSM\\cambodia-latest-free.shp\\gis.osm_buildings_a_free_1.dbf";
         System.out.println(getFileEncode(filePath));*/
-        String strtest = "\",\"labels\":{\"en\":{\"language\":\"en\",\"value\":\"Belgium\"}";
-        System.out.println(strtest.length());
-        String str = "I am a small apple";
-        System.out.println(str.indexOf("I"));
     }
 }

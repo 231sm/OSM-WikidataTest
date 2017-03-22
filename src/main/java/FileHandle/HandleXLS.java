@@ -1,10 +1,15 @@
-/**
+package FileHandle; /**
  * Created by SmallApple on 2017/3/19.
  */
 
-import java.io.*;
-import jxl.*;
-import jxl.write.*;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+
+import java.io.File;
 
 public class HandleXLS {
     public static void CreateXLS(String xlsFilePath, String sheetName, int sheetNum, String item, int col, int row) {
