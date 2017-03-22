@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 final public class YoudaoTranslator extends AbstractOnlineTranslator {
 
 	public YoudaoTranslator(){
+		langMap.put(LANG.auto, "auto");
 		langMap.put(LANG.en, "EN");
 		langMap.put(LANG.zh, "ZH_CN");
 	}

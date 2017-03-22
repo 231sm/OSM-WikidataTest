@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 final public class TencentTranslator extends AbstractOnlineTranslator {
 
 	public TencentTranslator(){
+		langMap.put(LANG.auto, "auto");
 		langMap.put(LANG.en, "1");
 		langMap.put(LANG.zh, "0");
 	}

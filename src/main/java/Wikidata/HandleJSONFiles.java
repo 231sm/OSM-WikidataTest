@@ -41,27 +41,39 @@ public class HandleJSONFiles {
                 }
                 System.out.print("ID " + buf + "\t");
                 HandleFiles.WirteTxt(txtPath, "ID\r\t" + buf + "\r\tName\r\t");
-                i= newstr.indexOf("language", i);
-                i += 11;
-                buf = "";
-                while (i < len && newstr.charAt(i) != '\"') {
-                    buf = buf + newstr.charAt(i); //buf记录下这个entity的language
-                    i++;
+                i = newstr.indexOf("en\":{\"language", i);
+                if(i > 0) {
+                    i += 30;
+                    buf = "";
+                    while (i < len && newstr.charAt(i) != '\"') {
+                        buf = buf + newstr.charAt(i); //buf记录下这个entity的language
+                        i++;
+                    }
+                    System.out.println("\tName " + buf);
+                    HandleFiles.WirteTxt(txtPath, buf + "\r\n");
                 }
-                i= newstr.indexOf("value", i);
-                //String buf2 = null;
-                String buf2 = "";
-                i += 8;
-                while (i < len && newstr.charAt(i) != '\"') {
-                    buf2 = buf2 + newstr.charAt(i); //buf2记录下这个entity的name
-                    i++;
+                else {
+                    i = newstr.indexOf("language", i);
+                    i += 11;
+                    buf = "";
+                    while (i < len && newstr.charAt(i) != '\"') {
+                        buf = buf + newstr.charAt(i); //buf记录下这个entity的language
+                        i++;
+                    }
+                    i= newstr.indexOf("value", i);
+                    //String buf2 = null;
+                    String buf2 = "";
+                    i += 8;
+                    while (i < len && newstr.charAt(i) != '\"') {
+                        buf2 = buf2 + newstr.charAt(i); //buf2记录下这个entity的name
+                        i++;
+                    }
+                    if (!(buf.equals("en"))) { // 如果language不是英文，那么接着调用google翻译的API将其自动检测语言并翻译成英文存入txt文件
+                        buf2 = factory.get("google").trans(LANG.auto, LANG.en, buf2);
+                    }
+                    System.out.println("\tName " + buf2);
+                    HandleFiles.WirteTxt(txtPath, buf2 + "\r\n");
                 }
-                //System.out.println("\tName " + buf2);
-                /*if (!(buf.equals("en"))) { // 如果language不是英文，那么接着调用google翻译的API将其自动检测语言并翻译成英文存入txt文件
-                    buf2 = factory.get("google").trans(LANG.auto, LANG.en, buf2);
-                }*/
-                System.out.println("\tName " + buf2);
-                HandleFiles.WirteTxt(txtPath, buf2 + "\r\n");
             }
             reader.close();
             }

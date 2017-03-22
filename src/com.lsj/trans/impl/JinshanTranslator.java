@@ -13,6 +13,7 @@ import net.sf.json.JSONObject;
 final public class JinshanTranslator extends AbstractOnlineTranslator {
 	
 	public JinshanTranslator(){
+		langMap.put(LANG.auto, "auto");
 		langMap.put(LANG.en, "en");
 		langMap.put(LANG.zh, "zh");
 	}
