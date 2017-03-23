@@ -20,42 +20,10 @@ public class HelloGeoKG {
         }
         return "";
     }
-    public static String getFileEncode(String path) {
-        CodepageDetectorProxy detector = CodepageDetectorProxy.getInstance();
-        detector.add(new ParsingDetector(false));
-        detector.add(JChardetFacade.getInstance());// 用到antlr.jar、chardet.jar
-        // ASCIIDetector用于ASCII编码测定
-        detector.add(ASCIIDetector.getInstance());
-        // UnicodeDetector用于Unicode家族编码的测定
-        detector.add(UnicodeDetector.getInstance());
-        java.nio.charset.Charset charset = null;
-        File f = new File(path);
-        try {
-            charset = detector.detectCodepage(f.toURI().toURL());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (charset != null)
-            return charset.name();
-        else
-            return null;
-    }
 
     public static void main(String args[]) throws UnsupportedEncodingException {
         System.out.printf("This project is to study (1) the linkage between OSM and WikiData, " +
                 "(2) the linkage between OSM and POIs \n");
         System.out.println("Have Fun!");
-        String str = "dsm";
-        System.out.println(str.length());
-        /*String str = "\\u0418\\u043d\\u0442\\u0435\\u0440\\u043d\\u0435\\u0442";
-        //String str = "dsm";
-        String encodelist = getcode(str);
-        System.out.println(encodelist);
-        String s = new String(str.getBytes("UTF-8"), "UTF-8");
-        System.out.println(s);
-        //String filePath = "F:\\Data\\Wikidata\\first_100_lines.json";
-        //String filePath = "F:\\Data\\OSM\\cambodia-latest.osm";
-        String filePath = "F:\\Data\\OSM\\cambodia-latest-free.shp\\gis.osm_buildings_a_free_1.dbf";
-        System.out.println(getFileEncode(filePath));*/
     }
 }
