@@ -55,7 +55,7 @@ public class HandleOSMFiles {
                             }
                             for(int k=0; k<j; k++) {
                                 System.out.println(feature[r] + "ID " + strGroup.get(k) + "\tName " + buf);
-                                byte[] bufBytes = (strGroup.get(k) + "," + buf).getBytes();
+                                byte[] bufBytes = (strGroup.get(k) + "," + buf + "\r\n").getBytes();
                                 fos.write(bufBytes);
                             }
                         }
