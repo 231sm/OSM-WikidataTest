@@ -89,7 +89,7 @@ public class HandleOSMFiles {
                             newstr = new String(stringLine.getBytes(encode), encode).trim();
                         }
                         if(newstr.indexOf("tag k=\"name\" v=\"") > 0) { //如果这些node id/way id/relation id确实有name
-                            quantity[1][r]++;
+                            quantity[1][r] += j;
                             int i = 17;
                             String buf = "";
                             while (newstr.charAt(i) != '\"') {//buf记录下node id/way id/relation id的name
