@@ -1,6 +1,7 @@
 /**
  * Created by John on 3/15/17.
  */
+import FileHandle.HandleFiles;
 import info.monitorenter.cpdetector.io.*;
 
 import java.io.*;
@@ -25,5 +26,11 @@ public class HelloGeoKG {
         System.out.printf("This project is to study (1) the linkage between OSM and WikiData, " +
                 "(2) the linkage between OSM and POIs \n");
         System.out.println("Have Fun!");
+        /*String filePath = "F:\\Data\\Wikidata\\first_100_lines.json";
+        String encode = HandleFiles.getFileEncode(filePath);
+        System.out.println(encode);
+        String str = "\\u65e7\\u91d1\\u5c71";
+        String s = new String(str.getBytes("Unicode"), "UTF-8");
+        System.out.println(s);*/
     }
 }
